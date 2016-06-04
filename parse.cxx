@@ -28,8 +28,8 @@ DoLegend=Y		; Bool can be T, F, Y, N, True, False, Yes, No, 0, 1...
 ------- End of file "Param.txt"
 
 ******************************************************************************/
-#include <stdio.h>
-#include <string.h>
+#include <cstdio>
+#include <string>
 
 #include "parse.h"
 

@@ -3,7 +3,7 @@
 #ifndef _PARSE_PARAM
 #define _PARSE_PARAM
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <iso646.h>
 
 extern char* read_par(const char* FileName, const char *VariableName);

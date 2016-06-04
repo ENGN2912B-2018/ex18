@@ -448,7 +448,7 @@ int main(int argc, char **argv) {
 	vtkStructuredPointsWriter *vspwrt = vtkStructuredPointsWriter::New();
 	vspwrt->SetInputConnection(imtsp->GetOutputPort());
 	vspwrt->GetInput()->SetSpacing(scl, scl, scl);
-	vspwrt->GetInput()->Update();
+	vspwrt->Update();
 	vspwrt->SetFileTypeToBinary();
 	vspwrt->SetFileName(fout);
 
