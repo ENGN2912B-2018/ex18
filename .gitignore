@@ -1,4 +1,9 @@
 *.o
 *.swp
-build/
+build
+
+*.ply
+*.stl
+*.vsp
+*.vtk
 
