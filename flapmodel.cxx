@@ -448,9 +448,9 @@ int main(int argc, char **argv) {
 	vtkStructuredPointsWriter *vspwrt = vtkStructuredPointsWriter::New();
 	vspwrt->SetInputConnection(imtsp->GetOutputPort());
 	vspwrt->GetInput()->SetSpacing(scl, scl, scl);
-	vspwrt->Update();
 	vspwrt->SetFileTypeToBinary();
 	vspwrt->SetFileName(fout);
+	vspwrt->Update();
 
 	if (verboseflg) {
 		fprintf(stderr, "writing to: %s\n", fout);
