@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
-#include <string.h>
+#include <cstring>
 #include <unistd.h>
 #include <math.h>
 #include <float.h>
@@ -41,7 +41,7 @@
 // color to mark the source voxel
 #define SCLR 1
 
-void usage(void) { 
+void usage(void) {
 	printf("usage: flapmodel [options] filename\n"
 				 "filename: name of model configuration file (text) \n"
 				 "options:\n"
@@ -163,16 +163,16 @@ int main(int argc, char **argv) {
 
 	valstr = read_par(fpar, "bnd");
 	sscanf(valstr, "%lf,%lf,%lf,%lf,%lf,%lf",
-				 &(bnd[0]), &(bnd[1]), &(bnd[2]), 
+				 &(bnd[0]), &(bnd[1]), &(bnd[2]),
 				 &(bnd[3]), &(bnd[4]), &(bnd[5]));
 	valstr = read_par(fpar, "scl");
 	sscanf(valstr, "%lf", &scl);
 
 	// check parameters: ------------------------------------
 	// normal vector should have non-zero length:
-	
+
 	if ((fpnx*fpnx+fpny*fpny+fpnz*fpnz)<10*DBL_EPSILON) {
-		fprintf(stderr, "warning: flap normal vector has length (%g) close to 0\n", 
+		fprintf(stderr, "warning: flap normal vector has length (%g) close to 0\n",
 						(fpnx*fpnx+fpny*fpny+fpnz*fpnz));
 	}
 
@@ -255,7 +255,7 @@ int main(int argc, char **argv) {
 	// (= angle between initial position 0,1,0 & target axis vec.)
 	carotang = acos(cavy)*RAD2DEG;
 
-	// rotation axis vector (normal to both cav & original cylinder axis) 
+	// rotation axis vector (normal to both cav & original cylinder axis)
 	// for rotating cylinder axis vector into target canal axis vector
 	// (original cylinder axis is 0,1,0)
   vtkTransform *cnlpos = vtkTransform::New();
@@ -326,7 +326,7 @@ int main(int argc, char **argv) {
 	// (halfway between upper & lower cutting plane) to the center of
 	// the flap (will be normal of frontal flap cutting plane):
 
-	// 1st intersecting line: 
+	// 1st intersecting line:
 	// (goes through origin of flap cutting plane & flap center)
 	// (this is also the frontal cutting plane surface normal)
 	v1[0] = fpnz*cos(fca*DEG2RAD);
@@ -405,7 +405,7 @@ int main(int argc, char **argv) {
 	sz = (int)rint((cnlh-cavz*(cnll-2*scl)-bnd[4])/scl);
 
 	if ((sx<0)||(sx>=ns[0])||(sy<0)||(sy>=ns[1])||(sz<0)||(sz>=ns[2])) {
-		fprintf(stderr, "source position (%d,%d,%d) out of bounds\n", 
+		fprintf(stderr, "source position (%d,%d,%d) out of bounds\n",
 						sx, sy, sz);
 		return(EXIT_FAILURE);
 	}
@@ -467,7 +467,7 @@ int main(int argc, char **argv) {
 		mcube->ComputeNormalsOff();
 		mcube->SetValue(0, 127);
 		mcube->Update();
-		
+
 		vtkSmoothPolyDataFilter *smth = vtkSmoothPolyDataFilter::New();
 		smth->SetInputConnection(mcube->GetOutputPort());
 		smth->SetNumberOfIterations(100);
@@ -501,7 +501,7 @@ int main(int argc, char **argv) {
 
 			// name of VTK-file (output):
 			snprintf(dp, PATH_MAX, ".vtk");
-			
+
 			vtkPolyDataWriter *vtkwrt = vtkPolyDataWriter::New();
 			vtkwrt->SetInputConnection(strp->GetOutputPort());
 			vtkwrt->SetFileTypeToBinary();
@@ -512,14 +512,14 @@ int main(int argc, char **argv) {
 			}
 
 			vtkwrt->Write();
-	
+
 		} /* write VTK file */
 
 		if (plyflg) { /* write PLY file */
 
 			// name of PLY-file (output):
 			snprintf(dp, PATH_MAX, ".ply");
-			
+
 			vtkPLYWriter *plywrt = vtkPLYWriter::New();
 			plywrt->SetInputConnection(nrml->GetOutputPort());
 			plywrt->SetFileTypeToBinary();
@@ -532,12 +532,12 @@ int main(int argc, char **argv) {
 			plywrt->Write();
 
 		} /* write PLY file */
-		
+
 		if (stlflg) { /* write STL file */
 
 			// name of STL-file (output):
 			snprintf(dp, PATH_MAX, ".stl");
-			
+
 			vtkSTLWriter *stlwrt = vtkSTLWriter::New();
 			stlwrt->SetInputConnection(nrml->GetOutputPort());
 			stlwrt->SetFileTypeToBinary();

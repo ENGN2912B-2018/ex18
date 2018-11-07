@@ -14,3 +14,5 @@ new configuration file. The parameters are also documented in the file
 parameter.txt.
 
 Examples of configuration files can be found in the conf-subdirectory.
+
+[Courtesy of Dr. Rolf Mueller, Virginia Tech]

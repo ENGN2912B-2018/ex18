@@ -1,10 +1,8 @@
 cmake_minimum_required(VERSION 3.2)
 
-#SET(CMAKE_INSTALL_PREFIX "/Users/gaudetteje" CACHE PATH "")
 SET(CMAKE_INSTALL_PREFIX $ENV{HOME} CACHE PATH "")
  
 PROJECT(flapmodel)
-
 
 find_package(VTK REQUIRED)
 include(${VTK_USE_FILE})

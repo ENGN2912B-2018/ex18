@@ -1,7 +1,7 @@
 /******************************************************************************
   MODULE: ParseParam
   PURPOSE:  Parses a parameter file into variables
-  
+
   EXAMPLE:
 	ParseParamString("Param.txt", DirSfcBin);
 	ParseParamInt("Param.txt", MaxLat);
@@ -29,7 +29,7 @@ DoLegend=Y		; Bool can be T, F, Y, N, True, False, Yes, No, 0, 1...
 
 ******************************************************************************/
 #include <cstdio>
-#include <string>
+#include <cstring>
 
 #include "parse.h"
 
@@ -48,7 +48,7 @@ char* read_par(const char* FileName, const char *VariableName) {
 	char *FirstQuote, *LastQuote, *P1, *P2;
 	int Line=0, Len=0, Pos=0;
 	FILE *file=fopen(FileName, "r");
-	
+
 	if (file==NULL) {
 		fprintf(stderr, "\nError: Could not find file %s", FileName);
 		exit(1);
@@ -77,7 +77,7 @@ char* read_par(const char* FileName, const char *VariableName) {
 			*FirstQuote=*LastQuote='\0';
 			Equal=FirstQuote+1;
 		}
-		
+
 		// removes leading/trailing spaces
 		Pos=strspn(Str, " \t");
 		if ((size_t)(Pos)==strlen(Str)) {
@@ -104,9 +104,9 @@ char* read_par(const char* FileName, const char *VariableName) {
 		}
 		Next:;
 	}
-	
+
 	// not found:
-	fprintf(stderr, "error: variable %s not in parameter file %s\n", 
+	fprintf(stderr, "error: variable %s not in parameter file %s\n",
 				FileName, VariableName);
 	fclose(file);
 	exit(EXIT_FAILURE);
