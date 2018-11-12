@@ -112,11 +112,11 @@ int main(int argc, char **argv) {
 
 	// name of vsp-file (output):
 	if ((dp=strrchr(fout, '.'))==NULL) {
-    fprintf(stderr, "error: parameter filename must contain a dot\n");
-    usage();
-    exit(EXIT_FAILURE);
-  }
-  snprintf(dp, PATH_MAX, ".vsp");
+	    fprintf(stderr, "error: parameter filename must contain a dot\n");
+	    usage();
+	    exit(EXIT_FAILURE);
+	}
+	snprintf(dp, PATH_MAX, ".vsp");
 
 	// read parameters from file:
 	valstr = read_par(fpar, "coa");
@@ -201,25 +201,25 @@ int main(int argc, char **argv) {
 	fhdz = fh/sin(coa*DEG2RAD);
 
 	// outer wall cone position:
-  vtkTransform *owcpos = vtkTransform::New();
-  owcpos->RotateY(90);
-  owcpos->Translate(0, 0, wdz);
+	vtkTransform *owcpos = vtkTransform::New();
+	owcpos->RotateY(90);
+	owcpos->Translate(0, 0, wdz);
 
 	// inner wall cone position:
-  vtkTransform *iwcpos = vtkTransform::New();
-  iwcpos->RotateY(90);
+	vtkTransform *iwcpos = vtkTransform::New();
+	iwcpos->RotateY(90);
 
 	// cone walls & cutting planes: -----------------------
 
 	// outer wall cone:
 	vtkCone *owc = vtkCone::New();
-  owc->SetAngle(coa);
-  owc->SetTransform(owcpos);
+	owc->SetAngle(coa);
+	owc->SetTransform(owcpos);
 
 	// inner wall cone:
 	vtkCone *iwc = vtkCone::New();
-  iwc->SetAngle(coa);
-  iwc->SetTransform(iwcpos);
+	iwc->SetAngle(coa);
+	iwc->SetTransform(iwcpos);
 
 	// cone cutting plane:
 	vtkPlane *pcut = vtkPlane::New();
@@ -229,7 +229,7 @@ int main(int argc, char **argv) {
 	// put the pieces of the cone together: ------------------
 
 	vtkImplicitBoolean *ibc = vtkImplicitBoolean::New();
-  ibc->SetOperationTypeToDifference();
+	ibc->SetOperationTypeToDifference();
 	ibc->AddFunction(owc);
 	ibc->AddFunction(iwc);
 	ibc->AddFunction(pcut);
@@ -258,7 +258,7 @@ int main(int argc, char **argv) {
 	// rotation axis vector (normal to both cav & original cylinder axis)
 	// for rotating cylinder axis vector into target canal axis vector
 	// (original cylinder axis is 0,1,0)
-  vtkTransform *cnlpos = vtkTransform::New();
+	vtkTransform *cnlpos = vtkTransform::New();
 	cnlpos->RotateWXYZ(carotang, -cavz, 0, cavx);
 	cnlpos->Translate(cnlix, cnliy, -cnlh);
 
@@ -303,14 +303,14 @@ int main(int argc, char **argv) {
 	// flap: -------------------------------------------------
 
 	// flap rim cone position:
-  vtkTransform *frcpos = vtkTransform::New();
-  frcpos->RotateY(90);
-  frcpos->Translate(0, 0, -fhdz);
+	vtkTransform *frcpos = vtkTransform::New();
+	frcpos->RotateY(90);
+	frcpos->Translate(0, 0, -fhdz);
 
 	// flap rim cone:
 	vtkCone *frc = vtkCone::New();
-  frc->SetAngle(coa);
-  frc->SetTransform(frcpos);
+	frc->SetAngle(coa);
+	frc->SetTransform(frcpos);
 
 	// lower flap cutting plane
 	vtkPlane *lfcp = vtkPlane::New();
@@ -357,7 +357,7 @@ int main(int argc, char **argv) {
 	ffcp->SetNormal(v1[0], v1[1], v1[2]);
 
 	vtkImplicitBoolean *ibf = vtkImplicitBoolean::New();
-  ibf->SetOperationTypeToDifference(); // Intersection
+	ibf->SetOperationTypeToDifference(); // Intersection
 	ibf->AddFunction(iwc);
 	ibf->AddFunction(frc);
 	ibf->AddFunction(ffcp);
@@ -367,7 +367,7 @@ int main(int argc, char **argv) {
 	// put all parts (cone, flap, canal) together: ---------
 
 	vtkImplicitBoolean *iball = vtkImplicitBoolean::New();
-  iball->SetOperationTypeToUnion();
+	iball->SetOperationTypeToUnion();
 	iball->AddFunction(ibc);
 	iball->AddFunction(ibf);
 	iball->AddFunction(ibocnl);
